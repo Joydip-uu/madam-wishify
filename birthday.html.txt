@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Fonts -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+html,body{
+  margin:0;
+  padding:0;
+  height:100%;
+  background:#0c0a09;
+  font-family:'Satoshi',sans-serif;
+  overflow:hidden;
+  color:#e5e5e5;
+}
+
+/* Aurora Background */
+.aurora{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, hsla(333,70%,55%,.4), transparent 60%),
+    radial-gradient(circle at 80% 30%, hsla(282,82%,54%,.3), transparent 60%),
+    radial-gradient(circle at 50% 80%, hsla(210,89%,60%,.3), transparent 60%),
+    radial-gradient(circle at 70% 70%, hsla(35,90%,60%,.3), transparent 60%);
+  animation: aurora 20s ease-in-out infinite alternate;
+  z-index:-2;
+}
+@keyframes aurora{
+  0%{filter:blur(60px);transform:scale(1);}
+  100%{filter:blur(90px);transform:scale(1.2);}
+}
+
+/* Glass Card */
+.card{
+  background:rgba(10,10,10,0.55);
+  backdrop-filter:blur(25px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:1.5rem;
+  box-shadow:0 20px 50px rgba(0,0,0,0.6);
+}
+
+/* Headings */
+.gradient-text{
+  background:linear-gradient(90deg,#ffd1dc,#fff);
+  -webkit-background-clip:text;
+  color:transparent;
+  font-family:'Playfair Display',serif;
+}
+
+/* Buttons */
+.btn{
+  background:linear-gradient(135deg,#ff4d6d,#ff1e56);
+  padding:0.9rem 2rem;
+  border-radius:999px;
+  font-weight:700;
+  color:white;
+  box-shadow:0 0 25px rgba(255,78,109,.6);
+  transition:.3s;
+}
+.btn:hover{
+  transform:translateY(-4px) scale(1.05);
+  box-shadow:0 0 45px rgba(255,78,109,.9);
+}
+.btn:active{transform:scale(.95);}
+
+/* Progress Bar */
+#progressWrap{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  width:60%;
+  height:6px;
+  background:rgba(255,255,255,.15);
+  border-radius:999px;
+  backdrop-filter:blur(10px);
+  z-index:50;
+}
+#progress{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#ff4d6d,#ff1e56);
+  border-radius:999px;
+}
+
+/* Polaroid */
+.polaroid{
+  background:white;
+  padding:10px;
+  padding-bottom:40px;
+  border-radius:6px;
+  box-shadow:0 15px 40px rgba(0,0,0,.6);
+  transform:rotate(-4deg);
+  transition:.4s;
+}
+.polaroid img{
+  border-radius:4px;
+}
+.polaroid:hover{
+  transform:rotate(0deg) scale(1.05);
+}
+.caption{
+  position:absolute;
+  bottom:10px;
+  width:100%;
+  text-align:center;
+  font-size:.9rem;
+  color:#333;
+  font-family:'Playfair Display';
+}
+
+/* Steps */
+.step{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1rem;
+  opacity:0;
+  pointer-events:none;
+}
+.step.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Floating emoji */
+.pulse{
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.15);}
+}
+
+/* Gallery */
+.gallery img{
+  border-radius:1rem;
+  transition:.4s;
+}
+.gallery img:hover{
+  transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+<div class="aurora"></div>
+<canvas id="three"></canvas>
+
+<div id="progressWrap"><div id="progress"></div></div>
+
+<!-- STEP 1 -->
+<div class="step active" data-step="1">
+<div class="card p-10 max-w-xl text-center">
+<div class="text-6xl pulse mb-4">❤️</div>
+<h1 class="gradient-text text-4xl mb-4">Hey Beautiful,</h1>
+<p class="mb-6">I built a little world for you, just to bring a smile to your face on your special day.</p>
+<button class="btn next">Let's Begin</button>
+</div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step" data-step="2">
+<div class="card p-10 max-w-xl text-center">
+<div class="text-6xl mb-4">🎉</div>
+<h1 class="gradient-text text-4xl mb-4">Happy Birthday!</h1>
+<p class="mb-6">Another year of you making the world brighter. Your existence is a gift.</p>
+<button class="btn next">There's more...</button>
+</div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step" data-step="3">
+<div class="card p-8 max-w-3xl">
+<h2 class="gradient-text text-3xl mb-6 text-center">A Few Things I Adore About You</h2>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="card p-4 col-span-2">✨ <b>Your Unmatched Kindness</b><br>The warmth you show is rare.</div>
+<div class="card p-4">😊 <b>That Smile</b><br>Pure magic.</div>
+<div class="card p-4 col-span-2">🌟 <b>Your Spirit</b><br>You make life exciting.</div>
+</div>
+<div class="text-center">
+<button class="btn next">Remember this?</button>
+</div>
+</div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step" data-step="4">
+<div class="card p-10 max-w-xl text-center">
+<h2 class="gradient-text text-3xl mb-6">That One Time...</h2>
+<div class="relative mx-auto w-64 mb-6 polaroid">
+<img src="https://i.ibb.co/6Z6XgCg/crush.webp">
+<div class="caption">Our favorite memory.</div>
+</div>
+<p class="mb-6">Every moment with you feels cinematic.</p>
+<button class="btn next">One last thing...</button>
+</div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step" data-step="5">
+<div class="card p-10 max-w-xl text-center">
+<div class="text-6xl mb-4">🎂</div>
+<h2 class="gradient-text text-3xl mb-4">My Wish For You</h2>
+<p class="mb-6">May life give you everything you deserve and more.</p>
+<button class="btn next">More memories ❤️</button>
+</div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step" data-step="6">
+<div class="card p-10 max-w-3xl text-center">
+<h2 class="gradient-text text-3xl mb-6">Little Moments</h2>
+<div class="flex gap-6 justify-center flex-wrap">
+<div class="polaroid relative w-56">
+<img src="https://i.ibb.co/Zf5d1fL/sample1.jpg">
+<div class="caption">That laugh 💖</div>
+</div>
+<div class="polaroid relative w-56 rotate-3">
+<img src="https://i.ibb.co/7v4NQnD/sample2.jpg">
+<div class="caption">Just us ✨</div>
+</div>
+</div>
+<button class="btn mt-6 next">Final Surprise</button>
+</div>
+</div>
+
+<!-- STEP 7 -->
+<div class="step" data-step="7">
+<div class="card p-10 max-w-4xl text-center">
+<h2 class="gradient-text text-3xl mb-6">Memories Gallery</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 gallery mb-6">
+<img src="https://i.ibb.co/6Z6XgCg/crush.webp">
+<img src="https://i.ibb.co/Zf5d1fL/sample1.jpg">
+<img src="https://i.ibb.co/7v4NQnD/sample2.jpg">
+</div>
+<button id="celebrate" class="btn">Celebrate!</button>
+<p id="finalText" class="mt-6 text-2xl gradient-text hidden">Happy Birthday, my crush! ❤️</p>
+</div>
+</div>
+
+<script>
+let current=1,total=7;
+const steps=document.querySelectorAll('.step');
+document.querySelectorAll('.next').forEach(btn=>{
+btn.onclick=()=>{
+steps[current-1].classList.remove('active');
+current++;
+steps[current-1].classList.add('active');
+document.getElementById('progress').style.width=(current-1)/(total-1)*100+'%';
+}
+});
+
+document.getElementById('celebrate').onclick=()=>{
+confetti({particleCount:300,spread:120,origin:{y:1}});
+setTimeout(()=>confetti({emojis:['❤️','✨','💖'],emojiSize:30,particleCount:80}),500);
+document.getElementById('finalText').classList.remove('hidden');
+};
+</script>
+</body>
+</html>
